@@ -1,0 +1,83 @@
+/* ---------- Page Layout ---------- */
+body {
+    background: #f0f2f5;
+    font-family: 'Segoe UI', sans-serif;
+}
+h1 {
+    text-align: center;
+    margin: 2rem 0;
+    font-weight: 700;
+    color: #343a40;
+}
+
+/* ---------- Todo Form ---------- */
+.todo-form {
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    display: flex;
+    gap: 0.5rem;
+}
+.todo-form input {
+    flex: 1;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ced4da;
+    transition: 0.3s;
+}
+.todo-form input:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+}
+.todo-form button {
+    border-radius: 10px;
+    padding: 0px 20px
+}
+
+/* ---------- Todo List ---------- */
+.todo-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.todo-item {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.todo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Completed task */
+.todo-item.completed p {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+/* Checkbox */
+.todo-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #0d6efd;
+    margin-right: 1rem;
+}
+
+/* Delete Button */
+.todo-item form button {
+    background: transparent;
+    border: none;
+    color: #dc3545;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.todo-item form button:hover {
+    color: #a71d2a;
+}
