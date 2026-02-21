@@ -1,7 +1,5 @@
 <h1 style="text-align: center;">Spring Boot Hands-On Projects</h1>
 
----
-
 A collection of small, hands-on projects built with Spring Boot and frontend technologies. Designed as practical exercises to learn and apply full-stack development concepts, including MVC patterns, REST APIs, real-time features, and front-end integration.
 
 ---
