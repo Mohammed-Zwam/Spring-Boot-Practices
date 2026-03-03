@@ -21,9 +21,9 @@ Basic socket & real-time messaging.
 
 ---
 
-### 3. E-commerce Store (React + Spring Boot)
+### 3. E-commerce Store (React & MUI + Spring Boot & MySql)
 
-Frontend-Backend integration.  
+Frontend-Backend integration.
 - Products Pagination & Sorting
 - Products Filtering
 - Products Search
