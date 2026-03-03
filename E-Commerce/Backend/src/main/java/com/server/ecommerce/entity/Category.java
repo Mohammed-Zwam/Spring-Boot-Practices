@@ -1,8 +1,7 @@
 package com.server.ecommerce.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Set;
@@ -13,9 +12,11 @@ import java.util.Set;
 @Setter
 @Getter
 public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     private String name;
 
-    @OneToMany(mappedBy = "category") // attribute name in Product class
-    private Set<Product> products;
+    // @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL) // attribute name in Product class
+    // private Set<Product> products;
 }

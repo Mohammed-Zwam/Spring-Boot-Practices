@@ -11,7 +11,7 @@ A collection of small, hands-on projects built with Spring Boot and frontend tec
 
 ### 1. Todo List (MVC)
 
-- Basic CRUD and task management.
+Basic CRUD and task management.
 
 ![Todo List Screenshot](./assets/TodoList.png)
 
@@ -25,5 +25,14 @@ Basic socket & real-time messaging.
 
 ### 3. E-commerce Store (React + Spring Boot)
 
-Frontend-backend integration.  
+Frontend-Backend integration.  
+- Products Pagination & Sorting
+- Products Filtering
+- Products Search
 
+![E-commerce Screenshot](./assets/e-commerce1.jpeg)
+![E-commerce Screenshot](./assets/e-commerce2.jpeg)
+![E-commerce Screenshot](./assets/e-commerce3.jpeg)
+![E-commerce Screenshot](./assets/e-commerce4.jpeg)
+![E-commerce Screenshot](./assets/e-commerce5.jpeg)
+![E-commerce Screenshot](./assets/e-commerce6.jpeg)
