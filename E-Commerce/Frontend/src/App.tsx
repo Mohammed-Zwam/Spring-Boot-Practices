@@ -28,7 +28,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       let productsResponse;
-      if (searchTerm.length != 0) 
+      if (searchTerm.length != 0)
         productsResponse = await getProductsPageBySearchTerm(searchTerm, page - 1, 9, sortDirection);
       else if (category.name && category?.name.length != 0)
         productsResponse = await getProductsPageByCategoryId(category.id, page - 1, 9, sortDirection);
@@ -48,9 +48,11 @@ function App() {
 
 
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-    setLoading(true);
-    window.scrollTo({ top: 0 });
+    if (value != page) {
+      setPage(value);
+      setLoading(true);
+      window.scrollTo({ top: 0 });
+    }
   };
 
   return (
