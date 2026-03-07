@@ -6,8 +6,26 @@ A collection of small, hands-on projects built with Spring Boot and frontend tec
 
 ## Projects
 
+### 1. Chat Application (MVC)
 
-### 1. Todo List (MVC)
+Basic socket & real-time messaging and users tracking.
+
+![Chat Application Screenshot](./assets/chat1.png)
+![Chat Application Screenshot](./assets/chat2.png)
+![Chat Application Screenshot](./assets/chat3.png)
+![Chat Application Screenshot](./assets/chat4.png)
+![Chat Application Screenshot](./assets/chat5.png)
+![Chat Application Screenshot](./assets/chat6.png)
+![Chat Application Screenshot](./assets/chat7.png)
+![Chat Application Screenshot](./assets/chat8.png)
+![Chat Application Screenshot](./assets/chat9.png)
+![Chat Application Screenshot](./assets/chat10.png)
+![Chat Application Screenshot](./assets/chat11.png)
+
+
+---
+
+### 2. Todo List (MVC)
 
 Basic CRUD and task management.
 
@@ -15,11 +33,7 @@ Basic CRUD and task management.
 
 ---
 
-### 2. Chat Application (MVC)
 
-Basic socket & real-time messaging.  
-
----
 
 ### 3. E-commerce Store (React & MUI + Spring Boot & MySql)
 
