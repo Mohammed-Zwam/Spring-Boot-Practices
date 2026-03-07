@@ -270,23 +270,28 @@ body {
 }
 
 /* Custom scrollbar styling */
-.messages::-webkit-scrollbar {
+.messages::-webkit-scrollbar,
+ .abso::-webkit-scrollbar{
   width: 6px;
 }
 
-.messages::-webkit-scrollbar-track {
+.messages::-webkit-scrollbar-track,
+ .abso::-webkit-scrollbar-track{
   background: transparent;
 }
 
-.messages::-webkit-scrollbar-thumb {
+.messages::-webkit-scrollbar-thumb,
+ .abso::-webkit-scrollbar-thumb {
   background: rgba(25, 118, 210, 0.3);
   border-radius: 3px;
   transition: background 0.2s ease;
 }
 
-.messages::-webkit-scrollbar-thumb:hover {
+.messages::-webkit-scrollbar-thumb:hover,
+.abso::-webkit-scrollbar-thumb:hover{
   background: rgba(25, 118, 210, 0.6);
 }
+
 
 .messages .message {
   clear: both;
@@ -726,7 +731,7 @@ button {
   font-weight: 600;
   color: white;
   padding: 12px 20px;
-  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  background: darkblue;
   border-radius: 8px;
   letter-spacing: 0.4px;
   margin: 12px 0;
@@ -737,16 +742,13 @@ button {
   transition: all 0.2s ease;
 }
 
-.status:hover {
-  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
-}
 
-.status.leave {
+.status.left {
   background: linear-gradient(135deg, #e74c3c, #c0392b);
   box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
 }
 
-.status.leave:hover {
+.status.left:hover {
   box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
 }
 

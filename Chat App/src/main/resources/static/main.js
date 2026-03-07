@@ -4,7 +4,7 @@ var chatElement = document.querySelector('#chat');
 var userForm = document.querySelector('#userForm');
 var connect = document.querySelector('#connect');
 var mainChat = document.querySelector('#main-chat');
-var sendDiv = document.querySelector('#sendDiv');
+var sendDiv = document.querySelector('.send_message');
 var main = document.querySelector('#main');
 var userName = null;
 var stomp = null;
@@ -20,13 +20,14 @@ function connectSocket(event){
     if(userName){
         logInElement.classList.add("dis");
         chatElement.classList.remove("dis");
-        //onlineUsers.classList.remove("dis");
+        onlineUsers.classList.remove("dis");
         var socket = new SockJS(URL + '/websocket'); // same => registry.addEndpoint("/websocket").withSockJS();
         stomp = Stomp.over(socket);
         stomp.connect({},() => {
             stomp.subscribe("/chat-client/messages", sendMessage)
-            stomp.send("/chat-servet/send-message",{}, // api => prefix of message broker + @RequestMapping("/chat") + @MessageMapping("/join") in controller
-                    JSON.stringify({sender: userName,chatType: 'USER_JOINED'})
+            stomp.subscribe("/chat-client/user-state", changeUserState)
+            stomp.send("/chat-server/join",{}, // chat-server => prefix of message broker + @RequestMapping("/chat-server") + @MessageMapping("/join") in controller
+                    JSON.stringify(userName)
             )
             connect.classList.add('dis')
         })
@@ -35,71 +36,68 @@ function connectSocket(event){
 
 
 function sendMessage(payload){
-    var message = JSON.parse(payload.body)
-    console.log(message)
-//    if(message.chatType == 'USER_JOINED'){
-//        joinUser(message,"join")
-//        listActiveUsers()
-//    } else if (message.chatType == 'USER_LEFT'){
-//        joinUser(message,"leave")
-//        listActiveUsers()
-//    } else {
-        var li = document.createElement('li');
-        li.classList.add('sms');
-        if (message.sender === userName) li.classList.add('my-sms');
+    var res = JSON.parse(payload.body)
+    var li = document.createElement('li');
+    li.classList.add('sms');
+    if (res.sender === userName) li.classList.add('my-sms');
 
-        var image = document.createElement('img');
-        image.src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-        image.alt = message.sender;
+    var image = document.createElement('img');
+    image.src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+    image.alt = res.sender;
 
-        var messageWrapper = document.createElement('div');
-        messageWrapper.classList.add('my-message');
+    var messageWrapper = document.createElement('div');
+    messageWrapper.classList.add('my-message');
 
-        var userSpan = document.createElement('span');
-        userSpan.classList.add('user');
-        userSpan.textContent = message.sender;
+    var userSpan = document.createElement('span');
+    userSpan.classList.add('user');
+    userSpan.textContent = res.sender;
 
-        var mesSpan = document.createElement('span');
-        mesSpan.classList.add('mes');
-        mesSpan.textContent = message.messageContent;
+    var mesSpan = document.createElement('span');
+    mesSpan.classList.add('mes');
+    mesSpan.textContent = res.messageContent;
 
-        messageWrapper.appendChild(userSpan);
-        messageWrapper.appendChild(mesSpan);
+    messageWrapper.appendChild(userSpan);
+    messageWrapper.appendChild(mesSpan);
 
-        li.appendChild(image);
-        li.appendChild(messageWrapper);
-        mainChat.appendChild(li);
+    li.appendChild(image);
+    li.appendChild(messageWrapper);
+    mainChat.appendChild(li);
 
-        // Auto-scroll to bottom
-        mainChat.scrollTop += mainChat.offsetHeight;
-//    }
+    // Auto-scroll to bottom
+    mainChat.scrollTop += mainChat.offsetHeight;
+
 }
 
-function joinUser(message,state){
+function changeUserState(payload){
+    var res = JSON.parse(payload.body)
+    var {username, state} = res;
+    console.log(username, state)
+
     var li = document.createElement('li');
     var hr1 = document.createElement('hr');
     var hr2 = document.createElement('hr');
     var statusDiv = document.createElement('div');
     statusDiv.classList.add('status');
     statusDiv.classList.add(state);
-
-    // Add emoji based on state
     var emoji = state === 'join' ? '✓' : '✕';
-    var statusText = document.createTextNode(emoji + ' ' + message.sender + ' ' + state);
+    var statusText = document.createTextNode(emoji + ' ' + username + ' ' + state);
     statusDiv.appendChild(statusText);
 
     li.appendChild(hr1);
     li.appendChild(statusDiv);
     li.appendChild(hr2);
     mainChat.appendChild(li);
+
+
+    listActiveUsers()
 }
 
 function send(){
+console.log("TESSSST ??????? CLICK")
     var userMessage = document.querySelector('#sms').value.trim()
     if(userMessage && stomp){
         var userMessage ={
             messageContent: userMessage,
-            chatType:'CHAT_MESSAGE',
             sender: userName
         }
         stomp.send("/chat-server/send-message",{},JSON.stringify(userMessage))
@@ -111,7 +109,7 @@ function send(){
 }
 
 function listActiveUsers(){
-    fetch(URL + "/active-users")
+    fetch(URL + "/api/active-users")
         .then(response => {
             console.log(response)
             return response.json()
@@ -141,17 +139,14 @@ function showActiveUser(users){
         var userItem = document.createElement('div');
         userItem.classList.add('user-item');
 
-        // Username span
         var nameSpan = document.createElement('span');
         nameSpan.classList.add('name-us');
         nameSpan.textContent = users[z].username;
         nameSpan.title = users[z].username; // Tooltip for long names
 
-        // Status indicator wrapper
         var statusWrapper = document.createElement('span');
         statusWrapper.classList.add('status-indicator');
 
-        // Status icon (green dot)
         var statusIcon = document.createElement('i');
         statusIcon.classList.add('fas', 'fa-circle');
 
@@ -168,7 +163,6 @@ function showActiveUser(users){
 userForm.addEventListener('submit', connectSocket)
 sendDiv.addEventListener('click',send)
 
-// Allow sending message with Enter key
 var smsInput = document.querySelector('#sms');
 if(smsInput) {
     smsInput.addEventListener('keypress', function(e) {
